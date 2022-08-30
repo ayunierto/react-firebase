@@ -10,7 +10,7 @@ function Login() {
     password: "",
   });
 
-  const { signin } = useAuth();
+  const { signin, loginWithGoogle } = useAuth();
 
   const navigate = useNavigate();
 
@@ -35,6 +35,16 @@ function Login() {
     }
   };
 
+  const handleGoogleSingin = async () => {
+    try {
+      await loginWithGoogle()
+      navigate('/')
+    } catch (error) {
+      setError(error.message)
+    }
+    navigate("/");
+  }
+
   return (
     <Container className="mt-10">
       <form onSubmit={handleSubmit}>
@@ -47,12 +57,12 @@ function Login() {
           alignItems="center"
           alignContent="center"
           wrap="nowrap"
-          
-        >
-        {error && <Alert severity="warning">{ error }</Alert>
-}
 
-          
+        >
+          {error && <Alert severity="warning">{error}</Alert>
+          }
+
+
           <Grid item xs={10} md={6}>
             <TextField
               id="email"
@@ -79,8 +89,13 @@ function Login() {
             </Button>
           </Grid>
         </Grid>
-        
+
       </form>
+
+      <button variant="outlined" color="default" onClick={handleGoogleSingin}>
+        Login Google
+      </button>
+
     </Container>
   );
 }
