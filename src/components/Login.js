@@ -10,7 +10,7 @@ function Login() {
     password: "",
   });
 
-  const { signin, loginWithGoogle } = useAuth();
+  const { signin, loginWithGoogle, resetPassword } = useAuth();
 
   const navigate = useNavigate();
 
@@ -43,6 +43,19 @@ function Login() {
       setError(error.message)
     }
     navigate("/");
+  }
+
+  const handleResetPassword = async () => {
+    if (!user.email) {
+      return setError('Please enter your email')
+    }
+    try {
+      await resetPassword(user.email)
+      setError('we send you an email with a link to reset your password')
+
+    } catch (error) {
+      setError(error.message)
+    }
   }
 
   return (
@@ -110,12 +123,16 @@ function Login() {
                     <Link to='/register'>Don't have an account?</Link>
                   </Grid>
 
+                  <Grid item >
+                    <a href="#!" className="inline-block" onClick={handleResetPassword}>Forgot password?</a>
+                  </Grid>
+
                 </Grid>
 
               </form>
 
             </CardContent>
-            
+
           </Card>
         </Grid>
       </Grid>
