@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
+import TextField from '@mui/material/TextField'
+import { Container, Button, Grid, Alert } from "@mui/material";
 
 function Register() {
   const [user, setUser] = useState({
@@ -34,32 +36,52 @@ function Register() {
   };
 
   return (
-    <div>
-      {error && <p>{error}</p>}
+    <Container className="mt-10">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
 
-        <input
-          type="email"
-          name="email"
-          id="email"
-          placeholder="youremail@company.com"
-          onChange={handleChange}
-        />
+        <Grid
+          container
+          spacing={2}
+          direction="column"
+          justify="center"
+          alignItems="center"
+          alignContent="center"
+          wrap="nowrap"
+          
+        >
+        {error && <Alert severity="warning">{ error }</Alert>
+}
 
-        <label htmlFor="password">password</label>
+          
+          <Grid item xs={10} md={6}>
+            <TextField
+              id="email"
+              label="Email"
+              value={user.email}
+              onChange={handleChange}
+              name="email"
+            />
+          </Grid>
 
-        <input
-          type="password"
-          name="password"
-          id="password"
-          placeholder="*********"
-          onChange={handleChange}
-        />
+          <Grid item xs={10} md={6}>
+            <TextField
+              id="password"
+              label="Password"
+              value={user.password}
+              onChange={handleChange}
+              name="password"
+            />
+          </Grid>
 
-        <button>Register</button>
+          <Grid item xs={10} md={6}>
+            <Button variant="contained" color="primary" type="submit">
+              Register
+            </Button>
+          </Grid>
+        </Grid>
+        
       </form>
-    </div>
+    </Container>
   );
 }
 
