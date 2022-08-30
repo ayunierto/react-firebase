@@ -1,3 +1,4 @@
+import { Button, Card, CardContent, CircularProgress, Container, Typography, Grid } from "@mui/material"
 import { useAuth } from "../context/authContext"
 
 function Home() {
@@ -7,14 +8,21 @@ function Home() {
 
   const handleLogout = async () => {
     try {
-      await logout()    
+      await logout()
     } catch (error) {
       console.log(error)
     }
   }
 
   if (loading) {
-    return <h1>Loading</h1>
+    return <Grid
+    container
+    direction="column"
+    justifyContent="center"
+    alignItems="center"
+    >
+      <CircularProgress />
+    </Grid>
   }
 
   // const authContext = useContext(context)
@@ -22,13 +30,17 @@ function Home() {
   console.log(user)
 
   return (
-    <div>
-      <h1>Welcome {user.displayName || user.email}</h1>
+    <Container>
+      <Card elevation={10}>
+        <CardContent>
+          <Typography variant="h3" color="primary">Welcome {user.displayName || user.email}</Typography>
 
-      <button onClick={handleLogout}>
-        Logout
-      </button>
-    </div>
+          <Button onClick={handleLogout}>
+            Logout
+          </Button>
+        </CardContent>
+      </Card>
+    </Container>
   )
 }
 

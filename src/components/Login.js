@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField'
-import { Container, Button, Grid, Alert } from "@mui/material";
+import { Container, Button, Grid, Alert, Card, CardContent, Typography } from "@mui/material";
 
 function Login() {
   const [user, setUser] = useState({
@@ -47,54 +47,78 @@ function Login() {
 
   return (
     <Container className="mt-10">
-      <form onSubmit={handleSubmit}>
 
-        <Grid
-          container
-          spacing={2}
-          direction="column"
-          justify="center"
-          alignItems="center"
-          alignContent="center"
-          wrap="nowrap"
+      <Grid
+        container
+        direction="column"
+        justifyContent="center"
+        alignItems="center"
+      >
+        <Grid item md={10}>
+          <Card elevation={10}>
+            <CardContent>
 
-        >
-          {error && <Alert severity="warning">{error}</Alert>
-          }
+              <Typography variant="h3" color="initial">Login</Typography>
 
+              <form onSubmit={handleSubmit}>
 
-          <Grid item xs={10} md={6}>
-            <TextField
-              id="email"
-              label="Email"
-              value={user.email}
-              onChange={handleChange}
-              name="email"
-            />
-          </Grid>
+                <Grid
+                  container
+                  direction="column"
+                  justifyContent="center"
+                  alignItems="center"
+                  rowSpacing={2}
+                >
+                  <Grid item>
+                    {error && <Alert severity="warning">{error}</Alert>
+                    }
+                  </Grid>
 
-          <Grid item xs={10} md={6}>
-            <TextField
-              id="password"
-              label="Password"
-              value={user.password}
-              onChange={handleChange}
-              name="password"
-            />
-          </Grid>
+                  <Grid item>
+                    <TextField
+                      id="email"
+                      label="Email"
+                      value={user.email}
+                      onChange={handleChange}
+                      name="email"
+                    />
+                  </Grid>
 
-          <Grid item xs={10} md={6}>
-            <Button variant="contained" color="primary" type="submit">
-              Login
-            </Button>
-          </Grid>
+                  <Grid item >
+                    <TextField fullWidth
+                      id="password"
+                      label="Password"
+                      value={user.password}
+                      onChange={handleChange}
+                      name="password"
+                    />
+                  </Grid>
+
+                  <Grid item >
+                    <Button variant="contained" color="primary" type="submit">
+                      Login
+                    </Button>
+                  </Grid>
+
+                  <Grid item >
+                    <Button variant="outlined" onClick={handleGoogleSingin}>
+                      Login Google
+                    </Button>
+                  </Grid>
+
+                  <Grid item >
+                    <Link to='/register'>Don't have an account?</Link>
+                  </Grid>
+
+                </Grid>
+
+              </form>
+
+            </CardContent>
+            
+          </Card>
         </Grid>
-
-      </form>
-
-      <button variant="outlined" color="default" onClick={handleGoogleSingin}>
-        Login Google
-      </button>
+      </Grid>
 
     </Container>
   );

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { useAuth } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import TextField from '@mui/material/TextField'
-import { Container, Button, Grid, Alert } from "@mui/material";
+import { Container, Button, Grid, Alert, Card, CardContent } from "@mui/material";
 
 function Register() {
   const [user, setUser] = useState({
@@ -43,43 +43,58 @@ function Register() {
           container
           spacing={2}
           direction="column"
-          justify="center"
           alignItems="center"
           alignContent="center"
-          wrap="nowrap"
-          
         >
-        {error && <Alert severity="warning">{ error }</Alert>
-}
+          <Card elevation={10}>
+            <CardContent>
+              <Grid
+                container
+                spacing={2}
+                direction="column"
+                alignItems="center"
+                alignContent="center"
+              >
 
-          
-          <Grid item xs={10} md={6}>
-            <TextField
-              id="email"
-              label="Email"
-              value={user.email}
-              onChange={handleChange}
-              name="email"
-            />
-          </Grid>
+                {error && <Alert severity="error">{error}</Alert>
+                }
 
-          <Grid item xs={10} md={6}>
-            <TextField
-              id="password"
-              label="Password"
-              value={user.password}
-              onChange={handleChange}
-              name="password"
-            />
-          </Grid>
 
-          <Grid item xs={10} md={6}>
-            <Button variant="contained" color="primary" type="submit">
-              Register
-            </Button>
-          </Grid>
+                <Grid item>
+                  <TextField
+                    id="email"
+                    label="Email"
+                    value={user.email}
+                    onChange={handleChange}
+                    name="email"
+                    type="email"
+                  />
+                </Grid>
+
+                <Grid item>
+                  <TextField
+                    id="password"
+                    label="Password"
+                    value={user.password}
+                    onChange={handleChange}
+                    name="password"
+                    type="password"
+                  />
+                </Grid>
+
+                <Grid item>
+                  <Button variant="contained" color="primary" type="submit">
+                    Register
+                  </Button>
+                </Grid>
+                <Grid item>
+                  <Link to="/login">Already have an account?</Link>
+                </Grid>
+              </Grid>
+            </CardContent>
+          </Card>
         </Grid>
-        
+
       </form>
     </Container>
   );
